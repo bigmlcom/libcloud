@@ -339,6 +339,8 @@ class EC2NodeDriver(NodeDriver):
                                       namespace=NAMESPACE),
                 'clienttoken' : findattr(element=element, xpath="clientToken",
                                          namespace=NAMESPACE),
+                'subnetId' : findattr(element=element, xpath="subnetId",
+                                         namespace=NAMESPACE),
                 'groups': groups
             }
         )
@@ -817,6 +819,9 @@ class EC2NodeDriver(NodeDriver):
 
         if 'ex_clienttoken' in kwargs:
             params['ClientToken'] = kwargs['ex_clienttoken']
+
+        if 'ex_subnetId' in kwargs:
+            params['SubnetId'] = kwargs['ex_subnetId']
 
         object = self.connection.request(self.path, params=params).object
         nodes = self._to_nodes(object, 'instancesSet/item')
